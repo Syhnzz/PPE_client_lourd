@@ -43,7 +43,7 @@ public class PanelActivite extends PanelPrincipal implements ActionListener
 		super ();
 		//construction du formulaire Activite. 
 		this.panelForm.setLayout(new GridLayout(4,2));
-		this.panelForm.setBackground(new Color (225, 198, 22));
+		this.panelForm.setBackground(new Color (0, 255, 255));
 		this.panelForm.setBounds(10, 10, 300, 300);
 		this.panelForm.add(new JLabel("Nom Activite :")); 
 		this.panelForm.add(this.txtNom); 
@@ -69,7 +69,7 @@ public class PanelActivite extends PanelPrincipal implements ActionListener
 		
 		//construction du panel filtre 
 		this.panelFiltre.setBounds(350, 30, 450, 30);
-		this.panelFiltre.setBackground(new Color (225, 198, 22));
+		this.panelFiltre.setBackground(new Color (0, 255, 255));
 		this.panelFiltre.setLayout(new GridLayout(1, 3));
 		this.panelFiltre.add(new JLabel("Filtrer les activité par :")); 
 		this.panelFiltre.add(this.txtFiltre); 

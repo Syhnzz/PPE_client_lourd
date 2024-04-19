@@ -40,7 +40,7 @@ public class PanelProfil extends PanelPrincipal implements ActionListener
 		this.unUser = unUser; 
 		
 		this.txtInfos.setBounds(40, 60, 300, 200);
-		this.txtInfos.setBackground(new Color (225, 198, 22));
+		this.txtInfos.setBackground(new Color (0, 255, 255));
 		this.txtInfos.setText(
 				"\n ______ Données Utilisateur ______"
 				+ "\n\nNom User    : "+unUser.getNom()
@@ -57,7 +57,7 @@ public class PanelProfil extends PanelPrincipal implements ActionListener
 		
 		//construction du panel form 
 		this.panelForm.setBounds(400, 60,300, 300);
-		this.panelForm.setBackground(new Color (225, 198, 22));
+		this.panelForm.setBackground(new Color (0, 255, 255));
 		this.panelForm.setLayout(new GridLayout(6,2));
 		this.panelForm.add(new JLabel("Nom : ")); 
 		this.panelForm.add(this.txtNom); 

@@ -44,7 +44,7 @@ public class PanelUtilisateur extends PanelPrincipal implements ActionListener
 		super ();
 		//construction du formulaire Utilisateur. 
 		this.panelForm.setLayout(new GridLayout(6,2));
-		this.panelForm.setBackground(new Color (225, 198, 22));
+		this.panelForm.setBackground(new Color (0, 255, 255));
 		this.panelForm.setBounds(10, 10, 300, 300);
 		this.panelForm.add(new JLabel("Nom Utilisateur :")); 
 		this.panelForm.add(this.txtNom); 
@@ -73,7 +73,7 @@ public class PanelUtilisateur extends PanelPrincipal implements ActionListener
 		
 		//construction du panel filtre 
 		this.panelFiltre.setBounds(350, 30, 450, 30);
-		this.panelFiltre.setBackground(new Color (225, 198, 22));
+		this.panelFiltre.setBackground(new Color (0, 255, 255));
 		this.panelFiltre.setLayout(new GridLayout(1, 3));
 		this.panelFiltre.add(new JLabel("Filtrer les utilisateurs par :")); 
 		this.panelFiltre.add(this.txtFiltre); 

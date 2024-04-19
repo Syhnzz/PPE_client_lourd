@@ -10,7 +10,7 @@ public class PanelPrincipal extends JPanel
 		//toutes les propriétés communes à tous les panels. 
 		this.setBounds(20, 80, 860, 460);
 		this.setLayout(null);
-		this.setBackground(new Color (225, 198, 22));
+		this.setBackground(new Color (0, 255, 255));
 		
 		this.setVisible(false);
 	}

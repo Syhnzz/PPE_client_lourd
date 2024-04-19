@@ -25,6 +25,7 @@ public class PanelRDVMairie extends PanelPrincipal implements ActionListener
 	private JPanel panelForm = new JPanel (); 
 	private JTextField txtMotif = new JTextField(); 
 	private JTextField txtRdv_date = new JTextField(); 
+	private JComboBox<String> txtService = new JComboBox<String>(); 
 	private JComboBox<String> txtId_user = new JComboBox<String>(); 
 	private JButton btAnnuler = new JButton("Annuler"); 
 	private JButton btEnregistrer = new JButton("Enregistrer");
@@ -43,13 +44,15 @@ public class PanelRDVMairie extends PanelPrincipal implements ActionListener
 	{
 		super ();
 		//construction du formulaire Classe. 
-		this.panelForm.setLayout(new GridLayout(4,2));
-		this.panelForm.setBackground(new Color (225, 198, 22));
+		this.panelForm.setLayout(new GridLayout(6,2));
+		this.panelForm.setBackground(new Color (0, 255, 255));
 		this.panelForm.setBounds(10, 10, 300, 300);
 		this.panelForm.add(new JLabel("Motif :")); 
 		this.panelForm.add(this.txtMotif); 
 		this.panelForm.add(new JLabel("Rendez vous date :")); 
 		this.panelForm.add(this.txtRdv_date); 
+		this.panelForm.add(new JLabel("Service :")); 
+		this.panelForm.add(this.txtService); 
 		this.panelForm.add(new JLabel("ID User:")); 
 		this.panelForm.add(this.txtId_user); 
 		this.panelForm.add(this.btAnnuler); 
@@ -58,7 +61,7 @@ public class PanelRDVMairie extends PanelPrincipal implements ActionListener
 		this.add(this.panelForm);
 		
 		//construction de la table des classes 
-		String entetes [] = {"ID RDVMairie", "Motif", "Rendez vous date", "ID User"};
+		String entetes [] = {"ID RDVMairie", "Motif", "Rendez vous date", "Service", "ID User"};
 		this.unTableau = new Tableau (entetes, this.remplirDonnees("")); 
 		
 		this.tableRDVMairie = new JTable(this.unTableau) ; 
@@ -69,9 +72,9 @@ public class PanelRDVMairie extends PanelPrincipal implements ActionListener
 		
 		//construction du panel filtre 
 		this.panelFiltre.setBounds(350, 30, 450, 30);
-		this.panelFiltre.setBackground(new Color (225, 198, 22));
+		this.panelFiltre.setBackground(new Color (0, 255, 255));
 		this.panelFiltre.setLayout(new GridLayout(1, 3));
-		this.panelFiltre.add(new JLabel("Filtrer les classes par :")); 
+		this.panelFiltre.add(new JLabel("Filtrer les rendez-vous par :")); 
 		this.panelFiltre.add(this.txtFiltre); 
 		this.panelFiltre.add(this.btFiltrer); 
 		this.add(this.panelFiltre); 
@@ -80,6 +83,10 @@ public class PanelRDVMairie extends PanelPrincipal implements ActionListener
 		this.btAnnuler.addActionListener(this);
 		this.btEnregistrer.addActionListener(this);
 		this.btFiltrer.addActionListener(this);
+		
+		this.txtService.addItem("affaire oublié");
+		this.txtService.addItem("Etat Civil");
+		this.txtService.addItem("Habitation");
 		
 		this.remplirCBXUtilisateur ();
 	}
@@ -98,13 +105,14 @@ public class PanelRDVMairie extends PanelPrincipal implements ActionListener
 		//cette méthode permet de convertir l'ArrayList en une matrice de données.
 		
 		ArrayList<RDVMairie> lesRDVMairie = Controleur.selectAllRDVMairie(filtre) ; 
-		Object [][] matrice = new Object [lesRDVMairie.size()][4];
+		Object [][] matrice = new Object [lesRDVMairie.size()][5];
 		int i =0; 
 		for (RDVMairie unRDVMairie : lesRDVMairie) {
 			matrice [i][0] = unRDVMairie.getId_rdv(); 
 			matrice [i][1] = unRDVMairie.getMotif(); 
 			matrice [i][2] = unRDVMairie.getRdv_date(); 
-			matrice [i][3] = unRDVMairie.getId_user(); 
+			matrice [i][3] = unRDVMairie.getService(); 
+			matrice [i][4] = unRDVMairie.getId_user(); 
 			i++;
 		}
 		return matrice;
@@ -118,12 +126,13 @@ public class PanelRDVMairie extends PanelPrincipal implements ActionListener
 		 else if (e.getSource() == this.btEnregistrer) {
 			 String motif = this.txtMotif.getText(); 
 			 String rdv_date = this.txtRdv_date.getText();
+			 String service  = this.txtService.getSelectedItem().toString();
 			 String chaine = this.txtId_user.getSelectedItem().toString();
 			 String tab[] = chaine.split("-");
 			 int id_user  = Integer.parseInt(tab[0]);
 			 
 			 //instanciation d'une classe 
-			 RDVMairie unRDVMairie = new RDVMairie (motif,rdv_date, id_user); 
+			 RDVMairie unRDVMairie = new RDVMairie (motif,rdv_date, service, id_user); 
 			 
 			 //insertion dans la base de données 
 			 Controleur.insertRDVMairie(unRDVMairie);
@@ -133,7 +142,7 @@ public class PanelRDVMairie extends PanelPrincipal implements ActionListener
 			 unRDVMairie = Controleur.selectWhereRDVMairie(motif, rdv_date); 
 			 
 			 //mettre à jour l'afffichage 
-			 Object ligne[]= {unRDVMairie.getId_rdv(), motif, rdv_date, id_user};
+			 Object ligne[]= {unRDVMairie.getId_rdv(), motif, rdv_date, service, id_user};
 			 this.unTableau.ajouterLigne(ligne);
 			 
 			 this.txtRdv_date.setText("");

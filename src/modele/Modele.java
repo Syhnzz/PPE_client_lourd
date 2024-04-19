@@ -42,7 +42,9 @@ public class Modele {
 	public static void insertRDVMairie (RDVMairie unRDVMairie) {
 		String requete ="insert into rdvMairie values (null, '"
 				+unRDVMairie.getMotif()+"','"
-				+unRDVMairie.getRdv_date()+"');";
+				+unRDVMairie.getRdv_date()+"','"
+				+unRDVMairie.getService()+"','"
+				+unRDVMairie.getId_user()+"');";
 		try {
 			uneBdd.seConnecter();
 			Statement unStat = uneBdd.getMaConnexion().createStatement(); 
@@ -71,7 +73,8 @@ public class Modele {
 	public static void updateRDVMairie (RDVMairie unRDVMairie) {
 		String requete ="update rdvMairie set motif='" 
 				+unRDVMairie.getMotif()+"', rdv_date ='"
-				+unRDVMairie.getRdv_date()+"' where id_rdv = "
+				+unRDVMairie.getRdv_date()+"', where service = "
+				+unRDVMairie.getService()+"' where id_rdv = "
 				+unRDVMairie.getId_rdv()+";";
 		try {
 			uneBdd.seConnecter();
@@ -101,7 +104,8 @@ public class Modele {
 			while (desRes.next()) {
 				RDVMairie unRDVMairie = new RDVMairie(desRes.getInt("id_rdv"),
 						desRes.getString("motif"), 
-						desRes.getString("rdv_date"),desRes.getInt("id_user"));
+						desRes.getString("rdv_date"),
+						desRes.getString("service"),desRes.getInt("id_user"));
 				lesRDVMairie.add(unRDVMairie);
 			}
 			unStat.close(); 
@@ -122,7 +126,8 @@ public class Modele {
 			if (desRes.next()) {
 				unRDVMairie = new RDVMairie(desRes.getInt("id_rdv"),
 						desRes.getString("motif"), 
-						desRes.getString("rdv_date"),desRes.getInt("iduser"));
+						desRes.getString("rdv_date"),
+						desRes.getString("service"),desRes.getInt("iduser"));
 			}
 			unStat.close(); 
 			uneBdd.seDeConnecter();
@@ -142,7 +147,8 @@ public class Modele {
 			if (desRes.next()) {
 				unRDVMairie = new RDVMairie(desRes.getInt("id_rdv"),
 						desRes.getString("motif"), 
-						desRes.getString("rdv_date"),desRes.getInt("id_user"));
+						desRes.getString("rdv_date"),
+						desRes.getString("service"),desRes.getInt("id_user"));
 			}
 			unStat.close(); 
 			uneBdd.seDeConnecter();
@@ -491,7 +497,7 @@ public class Modele {
 			Statement unStat = uneBdd.getMaConnexion().createStatement(); 
 			ResultSet desRes = unStat.executeQuery(requete);
 			while (desRes.next()) {
-				Enfant unEnfant = new Enfant(desRes.getInt("id_user"),
+				Enfant unEnfant = new Enfant(desRes.getInt("id_enfant"),
 						desRes.getString("nom"), 
 						desRes.getString("prenom"),
 						desRes.getInt("age"));
@@ -551,7 +557,8 @@ public class Modele {
 	/*************** Gestion des CentreLoisir ***************************/ 
 	public static void insertCentreLoisir (CentreLoisir unCentreLoisir) {
 		String requete ="insert into centreLoisir values (null, '"
-				+unCentreLoisir.getVille()+"');";
+				+unCentreLoisir.getVille()+"','"
+				+unCentreLoisir.getId_enfant()+"');";
 		try {
 			uneBdd.seConnecter();
 			Statement unStat = uneBdd.getMaConnexion().createStatement(); 
@@ -606,7 +613,7 @@ public class Modele {
 			ResultSet desRes = unStat.executeQuery(requete);
 			while (desRes.next()) {
 				CentreLoisir unCentreLoisir = new CentreLoisir(desRes.getInt("idcl"),
-						desRes.getString("date_inscr"), 
+						desRes.getString("ville"), 
 						desRes.getInt("id_enfant"));
 				lesCentreLoisirs.add(unCentreLoisir);
 			}
@@ -627,7 +634,7 @@ public class Modele {
 			ResultSet desRes = unStat.executeQuery(requete);
 			if (desRes.next()) {
 				unCentreLoisir = new CentreLoisir(desRes.getInt("idcl"),
-						desRes.getString("date_inscr"), 
+						desRes.getString("ville"), 
 						desRes.getInt("id_enfant"));
 			}
 			unStat.close(); 
@@ -638,16 +645,16 @@ public class Modele {
 		}
 		return unCentreLoisir; 
 	}
-	public static CentreLoisir selectWhereCentreLoisir (String date_inscr) {
+	public static CentreLoisir selectWhereCentreLoisir (String ville) {
 		CentreLoisir unCentreLoisir = null; 
-		String requete = "select * from centreLoisir where date_inscr='"+date_inscr+"';";
+		String requete = "select * from centreLoisir where ville='"+ville+"';";
 		try {
 			uneBdd.seConnecter();
 			Statement unStat = uneBdd.getMaConnexion().createStatement(); 
 			ResultSet desRes = unStat.executeQuery(requete);
 			if (desRes.next()) {
 				unCentreLoisir = new CentreLoisir(desRes.getInt("idcl"),
-						desRes.getString("date_inscr"), 
+						desRes.getString("ville"), 
 						desRes.getInt("id_enfant"));
 			}
 			unStat.close(); 

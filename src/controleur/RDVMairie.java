@@ -2,20 +2,22 @@ package controleur;
 
 public class RDVMairie {
 	private int id_rdv; 
-	private String motif, rdv_date; 
+	private String motif, rdv_date, service; 
 	private int id_user;
-	public RDVMairie(int id_rdv, String motif, String rdv_date, int id_user) {
+	public RDVMairie(int id_rdv, String motif, String rdv_date, String service, int id_user) {
 		 
 		this.id_rdv = id_rdv;
 		this.motif = motif;
 		this.rdv_date = rdv_date;
+		this.service = service;
 		this.id_user = id_user;
 	}
-	public RDVMairie(String motif, String rdv_date, int id_user) {
+	public RDVMairie(String motif, String rdv_date, String service, int id_user) {
 		 
 		this.id_rdv = 0;
 		this.motif = motif;
 		this.rdv_date = rdv_date;
+		this.service = service;
 		this.id_user = id_user;
 	}
 	public int getId_rdv() {
@@ -35,6 +37,12 @@ public class RDVMairie {
 	}
 	public void setRdv_date(String rdv_date) {
 		this.rdv_date = rdv_date;
+	}
+	public String getService() {
+		return service;
+	}
+	public void setService(String service) {
+		this.service = service;
 	}
 	public int getId_user() {
 		return id_user;
