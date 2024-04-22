@@ -34,8 +34,8 @@ public class Controleur {
 		
 	}
 	
-	public static RDVMairie selectWhereRDVMairie (String motif, String rdv_date) {
-		return Modele.selectWhereRDVMairie(motif, rdv_date);
+	public static RDVMairie selectWhereRDVMairie (String rdv_date, String rdv_heure) {
+		return Modele.selectWhereRDVMairie(rdv_date, rdv_heure);
 	}
 	
 	/****************** gestion des utilisateurs ***************/

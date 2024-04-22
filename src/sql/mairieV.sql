@@ -49,8 +49,8 @@ create table activite (
 
 create table rdvMairie (
 	id_rdv int(100) not null auto_increment, 
-	motif varchar(100), 
 	rdv_date Date, 
+	rdv_heure Time, 
 	service enum ("affaire oublié","Etat Civil", "Habitation"),
 	id_user int(3) not null, 
 	primary key (id_rdv), 

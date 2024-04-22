@@ -41,8 +41,8 @@ public class Modele {
 	/*************** Gestion des RDVMairie ***************************/ 
 	public static void insertRDVMairie (RDVMairie unRDVMairie) {
 		String requete ="insert into rdvMairie values (null, '"
-				+unRDVMairie.getMotif()+"','"
 				+unRDVMairie.getRdv_date()+"','"
+				+unRDVMairie.getRdv_heure()+"','"
 				+unRDVMairie.getService()+"','"
 				+unRDVMairie.getId_user()+"');";
 		try {
@@ -71,9 +71,9 @@ public class Modele {
 		}
 	}
 	public static void updateRDVMairie (RDVMairie unRDVMairie) {
-		String requete ="update rdvMairie set motif='" 
-				+unRDVMairie.getMotif()+"', rdv_date ='"
-				+unRDVMairie.getRdv_date()+"', where service = "
+		String requete ="update rdvMairie set rdv_date='" 
+				+unRDVMairie.getRdv_date()+"', rdv_heure ='"
+				+unRDVMairie.getRdv_heure()+"', where service = "
 				+unRDVMairie.getService()+"' where id_rdv = "
 				+unRDVMairie.getId_rdv()+";";
 		try {
@@ -93,9 +93,9 @@ public class Modele {
 		if (filtre.contentEquals("")) {
 			requete = "select * from  rdvMairie ; ";
 		}else {
-			requete = "select * from  rdvMairie where motif like '%" + filtre 
-					+ "%'  or  salle like '%"+filtre
-					+ "%' or diplome like '%"+filtre +"%' ;"; 
+			requete = "select * from  rdvMairie where rdv_date like '%" + filtre 
+					+ "%'  or  rdv_heure like '%"+filtre
+					+ "%' or service like '%"+filtre +"%' ;"; 
 		}
 		try {
 			uneBdd.seConnecter();
@@ -103,8 +103,8 @@ public class Modele {
 			ResultSet desRes = unStat.executeQuery(requete);
 			while (desRes.next()) {
 				RDVMairie unRDVMairie = new RDVMairie(desRes.getInt("id_rdv"),
-						desRes.getString("motif"), 
-						desRes.getString("rdv_date"),
+						desRes.getString("rdv_date"), 
+						desRes.getString("rdv_heure"),
 						desRes.getString("service"),desRes.getInt("id_user"));
 				lesRDVMairie.add(unRDVMairie);
 			}
@@ -125,8 +125,8 @@ public class Modele {
 			ResultSet desRes = unStat.executeQuery(requete);
 			if (desRes.next()) {
 				unRDVMairie = new RDVMairie(desRes.getInt("id_rdv"),
-						desRes.getString("motif"), 
-						desRes.getString("rdv_date"),
+						desRes.getString("rdv_date"), 
+						desRes.getString("rdv_heure"),
 						desRes.getString("service"),desRes.getInt("iduser"));
 			}
 			unStat.close(); 
@@ -137,17 +137,17 @@ public class Modele {
 		}
 		return unRDVMairie; 
 	}
-	public static RDVMairie selectWhereRDVMairie (String motif, String rdv_date) {
+	public static RDVMairie selectWhereRDVMairie (String rdv_date, String rdv_heure) {
 		RDVMairie unRDVMairie = null; 
-		String requete = "select * from rdvMairie where motif='"+motif+"' and rdv_date='"+rdv_date+"';";
+		String requete = "select * from rdvMairie where rdv_date='"+rdv_date+"' and rdv_heure='"+rdv_heure+"';";
 		try {
 			uneBdd.seConnecter();
 			Statement unStat = uneBdd.getMaConnexion().createStatement(); 
 			ResultSet desRes = unStat.executeQuery(requete);
 			if (desRes.next()) {
 				unRDVMairie = new RDVMairie(desRes.getInt("id_rdv"),
-						desRes.getString("motif"), 
-						desRes.getString("rdv_date"),
+						desRes.getString("rdv_date"), 
+						desRes.getString("rdv_heure"),
 						desRes.getString("service"),desRes.getInt("id_user"));
 			}
 			unStat.close(); 
